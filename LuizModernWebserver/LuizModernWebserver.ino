@@ -2,15 +2,15 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
-#include "main_Page.h"
+#include "index.h"
  
 #define LED_BUILTIN 2   //Configura o pino do LED embutido
  
 //Configura o nome da rede sem fio que se deseja conectar
-const char *ssid = "LuizNetwork";
+const char *ssid = "AulaIoT";
  
 //Configura a senha rede sem fio que se deseja conectar
-const char *password = "senhawifi";
+const char *password = "esp32iot";
  
 WebServer server(80);
  
@@ -56,17 +56,17 @@ void loop(void) {
 }
 
 void handleRoot() {
- server.send(200, "text/html", MAIN_PAGE);
+ server.send(200, "text/html", INDEX_HTML);
 }
  
 void handleOn() {
  digitalWrite(LED_BUILTIN, 1);
- handleRoot();
+ server.send(201, "text/html", "LED ON");
 }
  
 void handleOff() {
  digitalWrite(LED_BUILTIN, 0);
- handleRoot();
+ server.send(201, "text/html", "LED OFF");
 }
  
 void handleNotFound() {
