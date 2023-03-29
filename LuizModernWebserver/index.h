@@ -1,16 +1,19 @@
-const char MAIN_PAGE[] PROGMEM = R"=====(
+const char INDEX_HTML[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .mobile-container {
-  max-width: 480px;
   margin: auto;
   background-color: #555;
   height: 500px;
@@ -72,14 +75,26 @@ body {
   </a>
 </div>
 
-<div style="padding-left:16px">
+<div style="padding:16px">
   <h3>Seja bem-vindo ao exemplo inicial de Webserver Station</h3>
- <p> Ligar lâmpada:</p>
-  <input type="checkbox" checked data-toggle="toggle" data-size="sm">
+ 
+  
+ <div class="form-check form-switch form-control-lg">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="led">
+    <label class="form-check-label" for="flexSwitchCheckDefault">Ligar/Desligar LED</label>
+ </div>
+ <div class="mb-3">
+    <p>Você pode produzir desde a páginas HTML simples, sem uso de frameworks; até mesmo construir exemplos complexos com Bootstrap, dentre outros frameworks HTML/CSS/JS.  </p>
+    <p>Clique no menu hamburguer (três barras) no canto direito superior, para ter acesso ao menu.</p>
+ </div>
 
-  <p>Você pode produzir desde a páginas HTML simples, sem uso de frameworks; até mesmo construir exemplos complexos com Bootstrap, dentre outros frameworks HTML/CSS/JS.  </p>
-  <p>Clique no menu hamburguer (três barras) no canto direito superior, para ter acesso ao menu.</p>
+ <div class="mb-3">
+    <label for="result" class="form-label">Result:</label>
+    <div id="result"></div>   
+  </div>
+
 </div>
+
 
 <!-- End smartphone / tablet look -->
 </div>
@@ -93,9 +108,19 @@ function myFunction() {
     x.style.display = "block";
   }
 }
+
+var checkbox = document.querySelector("input[name=led]");
+
+checkbox.addEventListener('change', function() {
+  if (this.checked) {
+    $("#result").load( "/on");
+  } else {
+    $("#result").load( "/off");
+  }
+});
+
 </script>
 
 </body>
 </html>
-
 )=====";
